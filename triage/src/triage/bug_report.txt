@@ -1,0 +1,10 @@
+title: Report generation takes 3+ minutes on large datasets
+description: The sales report takes over 3 minutes to generate when selecting a date range longer than 6 months...
+steps_to_reproduce: |
+    1. Go to Reports > Sales Report.
+    2. Select a large date range.
+    3. Click "Generate".
+logs: No exceptions. CPU usage spikes to 80%. Some browser requests time out.
+expected: Report is generated within 30 seconds.
+actual: Takes over 3 minutes and crashes the UI.
+environment: Production, AWS, PostgreSQL, Chrome 120

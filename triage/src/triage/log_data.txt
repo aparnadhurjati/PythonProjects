@@ -1,0 +1,1 @@
+2024-07-12 10:15:45 ERROR OrderService - java.lang.NullPointerException: Cannot invoke "String.trim()" because "order.customerId" is null

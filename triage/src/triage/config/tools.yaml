@@ -1,0 +1,17 @@
+log_parser:
+  description: >
+    Extracts important error messages, stack traces, and exceptions from raw logs to help with debugging and classification.
+  function: tools.log_parser.extract_errors
+  inputs:
+    - log_data
+  outputs:
+    - extracted_errors
+
+exception_summarizer:
+  description: >
+    Summarizes exceptions and stack traces to provide a concise error context for agents.
+  function: tools.exception_tools.summarize_stack_trace
+  inputs:
+    - log_data
+  outputs:
+    - summary

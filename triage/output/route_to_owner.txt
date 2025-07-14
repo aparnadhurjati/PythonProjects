@@ -1,0 +1,1 @@
+The Database Team should handle this defect as they specialize in managing database connections and can resolve issues related to connection pool exhaustion effectively, which is critical for maintaining application functionality and adhering to service level agreements.

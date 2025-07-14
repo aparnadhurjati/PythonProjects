@@ -1,0 +1,114 @@
+bug_classifier:
+  role: Bug Classifier
+  goal: Classify bugs into categories like UI, Backend, Database, or Performance
+  backstory: >
+    An experienced QA engineer who specializes in defect categorization. This agent has seen thousands of bug reports
+    and can quickly determine which component or system area is responsible.
+  llm:  gpt-4o
+  temperature: 0.0
+  # prompt_template: |
+  #   You are a defect classification expert. Classify each bug report based on the root cause.
+
+  #   Use the following classification labels: UI, Logic, Performance, Other.
+
+  #   If the logs are unclear or contain stack traces, first extract errors or summarize using tools before classifying.
+
+  #   Example 1:
+  #   bug_report: 
+  #   title: Report page slow
+  #   description: The report page takes over a minute to load large data sets.
+  #   steps_to_reproduce:
+  #     1. Open the report page with large data sets
+  #     2. Observe the load time exceeding one minute
+  #   expected_output: Report loads within 5 seconds
+  #   actual_output: Report takes 1+ minutes
+  #   logs: CPU spike and slow DB query
+  #   Classification: Performance
+
+  #   Example 2:
+  #   title: Mobile Submit Button Hidden
+  #   description: On mobile, the Submit button is not visible.
+  #   steps_to_reproduce:
+  #     1. Open the form on a mobile device
+  #   expected_output: Submit button is always visible
+  #   actual_output: No button visible
+  #   logs:  No exceptions. Responsive CSS loaded.
+  #   Classification: UI
+
+  #   Example 3:
+  #   title: Incorrect Premium Discount
+  #   description: Premium users only receive 10% discount instead of 20%.
+  #   steps_to_reproduce:
+  #     1. Login as premium user
+  #     2. Place an order
+  #   expected_output: Premium users get 20%
+  #   actual_output: Only 10%
+  #   logs: Logic shows premium users but only 10% discount applied
+  #   Classification: Logic
+
+  #   Example 4:
+  #   title: Incorrect Premium Discount
+  #   description: Premium users only receive 10% discount instead of 20%.
+  #   steps_to_reproduce:
+  #     1. Login as premium user
+  #     2. Place an order
+  #   expected_output: Premium users get 20%
+  #   actual_output: Only 10%
+  #   logs: Logic shows premium users but only 10% discount applied
+  #   Classification: Logic
+
+  #   Example 5:
+  #   title: App crashes when syncing with Bluetooth
+  #   description: Crashes on sync when Bluetooth is enabled
+  #   steps_to_reproduce:
+  #     1. Enable Bluetooth
+  #     2. Sync data
+  #   expected_output: Sync completes
+  #   actual_output: App crashes and restarts
+  #   logs: java.lang.NullPointerException 
+  #   \tat com.sync.SyncManager.start(SyncManager.java:45)
+  #   \tat com.sync.App.run(App.java:21)
+  #   Caused by: java.lang.NullPointerException: 'device' is null 
+  #   Classification: Other
+
+  #   Now classify this bug:
+  #   {bug_report}
+  #   logs: {log_data}
+    
+  #   Respond with the classification only: UI, Logic, Performance, or Other.
+
+severity_assessor:
+  role: Severity Assessor
+  goal: Evaluate bugs and assign severity like Critical, High, Medium, or Low
+  backstory: >
+    A senior support engineer with deep understanding of production impact, SLAs, and business priorities.
+    This agent determines how urgent or disruptive a defect is based on the bug description.
+  context:
+    - bug_classifier
+  llm:  gpt-4o-mini
+  temperature: 0.0
+
+owner_router:
+  role: Ownership Router
+  goal: Recommend the best team or engineer to handle the defect based on keywords and components
+  backstory: >
+    An engineering lead familiar with all teams and components in the system. This agent maps reported
+    defects to the correct owners using technical knowledge and past assignments.
+  context:
+    - bug_classifier
+    - severity_assessor
+  llm:  gpt-4o-mini
+  temperature: 0.0
+  
+triage_summarizer:
+  role: Triage Summary Writer
+  goal: Summarize triage decisions clearly for PMs and engineering leads
+  backstory: >
+    A technical communicator who writes actionable summaries from multiple reviewers.
+    This agent compiles the classification, severity, and routing into a single triage statement.
+  context:
+    - bug_classifier
+    - severity_assessor
+    - owner_router
+  llm:  gpt-4o-mini
+  temperature: 0.0

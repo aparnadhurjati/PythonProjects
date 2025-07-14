@@ -1,0 +1,53 @@
+classify_defect:
+  description: >
+    Read the full bug report carefully and classify the root cause of the defect into one of the following categories:
+    UI, Backend, Database, Performance, Logic, or Other.
+
+    DO NOT base your decision solely on where the problem appears (e.g., UI unresponsiveness).
+    Instead, use Title, Description, Steps to Reproduce, Expected, Actual, logs and environment to determine the *source* of the issue.
+    If the bug is not clear, return "Other".
+
+    The classification should be based on the root cause of the defect, not just the symptoms.
+    Examples:
+    - If the UI freezes due to slow backend processing, classify as Performance or Backend.
+    - If data is lost or corrupted, it might be a Database issue.
+    - If the logic flow is wrong, choose Logic.
+    - Choose UI only if the bug is strictly in layout, rendering, buttons, etc.
+
+    Return the category and a brief explanation for your decision.
+  expected_output: >
+    A root-cause-based classification along with 1-2 lines justifying the classification.
+  agent: bug_classifier
+  input_variables:
+    - bug_report
+    - log_data
+  output_file: output/classify_defect.txt
+
+assign_severity:
+  description: >
+    Given the bug description, assess the severity level based on its user impact, frequency, data loss risk, and urgency.
+    Choose one of the following levels: Critical, High, Medium, Low.
+  expected_output: >
+    A severity level string and a brief rationale for why this level was chosen.
+  agent: severity_assessor
+  output_file: output/assign_severity.txt
+
+route_to_owner:
+  description: >
+    Based on the keywords, files mentioned, and bug context, identify the responsible team or engineer who should fix the bug.
+    Use ownership mappings if needed.
+  expected_output: >
+    The name of the suggested team or engineer with a one-line justification.
+  agent: owner_router
+  output_file: output/route_to_owner.txt
+
+summarize_triage:
+  description: >
+    Generate a triage summary that consolidates the results from all previous steps.
+    The summary should be written in clear prose, suitable for sharing with product managers and engineers.
+    It must include classification, severity, and suggested owner.
+  expected_output: >
+    A 3-4 sentence triage summary that clearly states the defect category, its severity, and routing recommendation.
+  agent: triage_summarizer
+  output_file: output/triage_summary.txt
+
