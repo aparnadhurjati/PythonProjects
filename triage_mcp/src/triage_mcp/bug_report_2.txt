@@ -1,0 +1,13 @@
+title: Order submission fails on null customer
+description: Submitting an order intermittently fails when no customer is selected.
+steps_to_reproduce: |
+  1. Go to Orders screen
+  2. Click "Submit" without selecting a customer
+expected: Should prompt to select a customer
+actual: Application crashes with server error
+logs: |
+  2024-06-21 10:14:32 ERROR com.example.OrderService - Failed to process order 
+  java.lang.NullPointerException: Cannot invoke "String.trim()" because "order.customerId" is null 
+    at com.example.OrderService.processOrder(OrderService.java:58) 
+    at com.example.OrderController.submitOrder(OrderController.java:22)
+  2024-06-21 10:14:33 INFO com.example.OrderService - Retrying request

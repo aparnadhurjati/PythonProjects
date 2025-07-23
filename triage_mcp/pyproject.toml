@@ -1,0 +1,25 @@
+[project]
+name = "triage_mcp"
+version = "0.1.0"
+description = "triage-mcp using crewAI"
+authors = [{ name = "Aparna", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai-tools[mcp]>=0.55.0",
+    "crewai[tools]>=0.148.0,<1.0.0",
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.12.0",
+]
+
+[project.scripts]
+run_crew = "triage_mcp.main:run"
+train = "triage_mcp.main:train"
+replay = "triage_mcp.main:replay"
+test = "triage_mcp.main:test"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
