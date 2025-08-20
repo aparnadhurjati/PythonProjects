@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+scikit-learn
+pytorch-tabnet
+joblib
+torch
+tensorboard
+kaggle
