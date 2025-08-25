@@ -1,0 +1,88 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+venv/
+.env/
+.venv/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs and TensorBoard
+logs/
+runs/
+*.log
+
+# Checkpoints / models
+*.pth
+*.pt
+*.th
+checkpoints/
+models/
+best_model.pth
+
+# Datasets and large data files
+data/*.csv
+*.npz
+*.npy
+*.parquet
+
+# Plots and visualizations
+plots/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+*.svg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Type checkers / tools
+.mypy_cache/
+.pytype/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE / Editor
+.vscode/
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local env/config
+*.env
+*.env.*
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Model artifacts
+*.onnx
+*.tflite
+*.pb
+
+# Kaggle credentials (if manually downloaded)
+.kaggle/
+kaggle.json
